@@ -34,6 +34,15 @@ Before creating a new file, check whether the thing belongs in an existing one f
 
 Match the existing project's structure and naming conventions exactly — files, folders, and identifiers (variables, functions, types) alike — even if you'd organize it differently starting from scratch. If the convention is genuinely unclear or inconsistent, ask rather than picking your own pattern.
 
+## File-level readability
+
+A file is a unit a human reads top to bottom, not just a container the filesystem section decides the boundary of. Once a file exists, how it reads internally is its own concern.
+
+- **Order within a file should mirror how it'd be explained**, not the order things happened to be written in. Higher-level orchestration near the top, the details it delegates to further down — a reader should be able to stop reading once they've gone deep enough for what they need, not have to scan the whole file to find the part that matters.
+- **A file should read as one coherent thing**, not several unrelated ones that happen to share a file. If a file's contents don't have an actual reason to be read together, that's a sign it's not one file's worth of content, independent of length — a short file mixing two unrelated concerns is worse than a longer file that's actually one concern.
+- **Length is a symptom, not the target.** Don't split a file because it crossed a line count; split it when it's doing more than one job. Don't leave a file long because it happens to be under some threshold if it's actually several jobs stacked together.
+- **Imports/dependencies at the top should tell a reader what this file needs from the rest of the world before they read a line of logic** — keep that list honest and minimal; an import that's not actually used, or a dependency pulled in for one incidental call, adds noise to that signal.
+
 ## Comments
 
 A comment exists for what the code can't say for itself — the reasoning, the tradeoff, the constraint, the rejected alternative. If a comment explains what the code does, that's a failure of the code, not a job for the comment: the fix is a better name, an extracted function, clearer types — not a sentence bolted on top. Comments live in the layer underneath the code, not alongside it restating it.
