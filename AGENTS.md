@@ -12,9 +12,15 @@ The three sections below — code philosophy, filesystem/naming, comments — ar
 
 ## Code philosophy — semantic compression
 
+**What "efficient" means here:** not shorter code, not fewer files — minimizing the total human effort a piece of code costs across its entire lifetime. That includes the time to write it, debug it, modify it, adapt it to new uses, and any extra work done to *other* code just to interface with it. Compression is in service of that total, not an aesthetic preference for terseness.
+
 Write the concrete version first — no parameters, base classes, or interfaces for cases that don't exist yet. Let structure reveal itself from real duplication, not from modeling the domain upfront (e.g. don't build an Employee/Manager/Contractor hierarchy before any code needs to distinguish them).
 
-Don't extract a shared abstraction until the same logic is duplicated twice, in real working code. When you do, pull out only the variables/operations that were already traveling together — the structure should already exist implicitly in the repeated code, not be invented.
+Don't extract a shared abstraction until the same logic is duplicated twice, in real working code. One instance always stays inline until then.
+
+When it's time to extract, do it in small, independently verifiable steps rather than one redesign:
+1. First, group the data that's already traveling together across the duplicated code (the same variables getting passed around or reused in both places) into one shared holder — no new behavior yet, just naming what's already being threaded through together.
+2. Then pull the repeated operations on that data out one at a time — extract one, confirm nothing changed, extract the next. Each step should leave behavior identical to before; if behavior changes mid-step, that's a bug, not part of the refactor.
 
 When new code needs something already compressed: use it as-is if it fits, modify it if it's close, add a layer if it's genuinely different. Don't fork a parallel version instead.
 
@@ -82,4 +88,3 @@ Mid-loop replies stay as terse as the first description — don't re-summarize t
 ## Git
 
 Do not run git commands (commit, push, branch, etc.) unless explicitly asked. Committing is mine to do. This is a division of responsibility, not a form concern — no connection to the rest of this document is implied.
-
