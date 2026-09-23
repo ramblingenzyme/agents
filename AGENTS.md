@@ -4,7 +4,7 @@
 
 A codebase has two audiences: the machine, which needs correctness, and the human, who needs to hold it in their head. Neither excuses the other. Code that runs but can't be read is broken on a different axis than code that doesn't compile.
 
-The codebase is an aesthetic object. Form isn't decoration on top of the logic — structure, naming, and comments are where meaning lives for the reader, same rank as the logic itself.
+The codebase is an aesthetic object. Form isn't decoration on top of the logic — structure, naming, and comments are where meaning lives for the reader, same rank as the logic itself. Equal rank means equal cost: every piece of form must justify itself, same as a line of logic.
 
 Four surfaces carry this: code, comments, docs, filesystem. A well-placed file, a name that earns its keep, a comment that says what the code can't — same move, different material. Right information in the right layer, nothing duplicated across layers. Get the form wrong and the object fails, whatever the tests say.
 
@@ -66,30 +66,26 @@ Match the project's existing conventions exactly — files, folders, variable na
 
 A comment carries what the code can't: the reasoning, tradeoff, constraint, path not taken. If it explains what the code *does*, the code failed — fix it with a better name or an extracted function, don't bolt a sentence on top.
 
-The test: would someone reading only the code end up guessing this? Yes — write it down. No — it's noise, and noise is worse than silence: it goes stale and starts lying about code that moved on.
+Default to none. Keep a comment only if you can name the mistake a reader would make without it. Anything else is noise, and noise is worse than silence: it goes stale and starts lying about code that moved on.
 
 Comments cost more than their line count. Code you execute in your head; prose you take on faith. Each comment forces that swap mid-thought, every pass through the file. Stack enough and you're reading code, then reading about the code, then finding your place again — friction wearing a documentation costume.
 
 - **Signatures:** comment only when the name and types leave something out.
 - **Magic numbers:** name the constant for what it is; comment why this value and not another.
 - **Complex logic:** one comment above the block for the approach, not line-by-line narration.
-- **TODOs:** leave one wherever a corner got cut, where the next person will see it — not buried in a commit message.
+- **TODOs:** for work deferred, not a corner cut on purpose (that's `ponytail:`). Leave it where the next person will see it — not buried in a commit message.
 - **Commented-out code:** delete it. Git remembers.
 - **Terseness:** state the reasoning in as few words as it takes, then stop. A paragraph where a clause would do is the same failure as restating the code, spread over more words.
 
 ### Marking deliberate corners
 
-When a corner is cut on purpose — a global lock instead of proper concurrency, an O(n²) scan, a naive heuristic — mark it:
-
-`ponytail: <what was cut> — upgrade path: <what would replace it and when>`
-
-This sits alongside TODOs, not instead of them: `ponytail:` is a deliberate simplification with a known ceiling and upgrade path; `TODO` is deferred work in general.
+When a corner is cut on purpose — a global lock instead of proper concurrency, an O(n²) scan, a naive heuristic — mark it with a `ponytail:` comment that names what was cut and the upgrade path: what would replace it, and when.
 
 ### Documentation
 
 A comment serves someone already reading the code and can lean on it. Docs serve someone who isn't: deciding whether to use something, integrating against it, onboarding. They stand alone with zero context.
 
-**Docstrings/API docs:** write them unprompted, internal functions and modules included. Same threshold as the Signatures rule under Comments.
+**Docstrings/API docs:** exported API gets one unprompted. Internal code follows Comments.
 
 **README:** keep it current without being asked, an explicit exception to Scope. New setup step, major dependency, changed usage, renamed entry point. A stale README is a defect, same as a wrong comment.
 
