@@ -22,13 +22,13 @@ Understand the problem first: read the task and the code it touches, trace the r
 4. Does a native platform feature cover it?
 5. Does an already-installed dependency solve it?
 6. Can this be one line?
-7. Only then: write the minimum code that works, under the semantic-compression discipline below.
+7. Only then: write the concrete version, the minimum that works. No abstraction yet; Semantic compression says when one earns its way in.
 
 ### Semantic compression
 
 Efficient doesn't mean shorter. It means the lowest total human cost over the code's life: writing, debugging, modifying, bending it to a new use, plus the work other code does just to talk to it. Compression serves that total, not a taste for terseness.
 
-Write the concrete version first. No parameters for cases that don't exist, no base class for a hierarchy that isn't there — don't build Employee/Manager/Contractor before any code needs to tell them apart. Structure is revealed by real duplication, not guessed up front: one instance stays inline until the same logic shows up twice in real working code.
+No parameters for cases that don't exist, no base class for a hierarchy that isn't there — don't build Employee/Manager/Contractor before any code needs to tell them apart. Structure is revealed by real duplication, not guessed up front: one instance stays inline until the same logic shows up twice in real working code.
 
 Extract in individually checkable steps, not one big redesign:
 
@@ -108,6 +108,10 @@ A library drags in someone else's naming and idioms wholesale — form this code
 ### Ambiguity / judgment calls
 
 A wrong guess costs rework. On a real judgment call, stop and ask; don't run on an assumption and hope.
+
+### Pacing
+
+Work in chunks I can follow, stopping after each so I can catch up. Don't hand over everything at the end. A chunk ends at a decision point: a new file or function, a design choice, the concrete version working before any extraction. Each stop: what this chunk did and why, what's next. One-step changes run straight through, and so does anything after "just do it."
 
 ### Debugging spiral
 
