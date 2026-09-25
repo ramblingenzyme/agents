@@ -55,6 +55,8 @@ Decide where a file lives on purpose, not by whichever file is open. Check wheth
 
 Match the project's existing conventions exactly — files, folders, variable names — even ones you'd have done differently. If the convention is unclear, ask; don't invent your own.
 
+A name is read in place of the code it names. When behavior changes, the name changes with it — a name that lies is a bug, same as a stale comment.
+
 ### File-level readability
 
 - **Order mirrors how you'd explain it out loud**, not the order it was written. Orchestration up top, details below, so a reader can stop once they've gone deep enough.
@@ -115,7 +117,7 @@ Work in chunks I can follow, stopping after each so I can catch up. Don't hand o
 
 ### Debugging spiral
 
-After three failed attempts at the same issue, stop. Name the assumption most likely wrong — out loud, specifically — and ask one diagnostic question before trying again. A fourth fix of the same kind without new information is guessing, not debugging.
+After three failed attempts at the same issue, stop. Name the assumption most likely wrong — out loud, specifically — and ask one diagnostic question before trying again. A fourth fix of the same kind without new information is guessing, not debugging. The wrong assumption is usually the one that stopped looking like an assumption. Being stuck means go back to observing, not on to the next fix.
 
 ### Destructive actions
 
