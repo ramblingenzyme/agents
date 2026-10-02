@@ -91,7 +91,20 @@ A comment serves someone already reading the code and can lean on it. Docs serve
 
 **README:** keep it current without being asked, an explicit exception to Scope. New setup step, major dependency, changed usage, renamed entry point. A stale README is a defect, same as a wrong comment.
 
-**ADRs:** only for decisions expensive to reverse: a data model, a framework/platform commitment, an API contract others build against. A cheap-to-change decision gets a comment or commit message instead, even if a real alternative was weighed. One ADR per decision: what was chosen, the real alternatives, why. Not a design doc.
+**ADRs (Architecture Decision Records):** only for decisions expensive to reverse: a data model, a framework/platform commitment, an API contract others build against. A cheap-to-change decision gets a comment or commit message instead, even if a real alternative was weighed.
+
+An ADR records a decision already made — it captures the reasoning at the time so future readers don't re-litigate it. It is not a design doc: a design doc explores options in search of a decision, an ADR records one that's been made.
+
+An accepted ADR is immutable. If the decision changes, do not edit it — mark it as superseded with a link to the new ADR, and write a new ADR that references the old one. The old ADR stays as a record of what was decided and why at that time.
+
+One ADR per decision. Structure:
+- **Title:** the decision, in a sentence
+- **Status:** proposed / accepted / deprecated / superseded (with link to replacement)
+- **Context:** the situation and constraints that motivated the decision
+- **Decision:** what was chosen
+- **Consequences:** what follows — good and bad
+
+One page. Not a thesis.
 
 ## When to stop and ask
 
